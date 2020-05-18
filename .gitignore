@@ -29,3 +29,5 @@ hs_err_pid*
 .settings/
 target/
 src/main/resources/
+src/test/java/IOConsoleBasicGetDoubleTest_5.java
+src/test/java/IOConsoleBasicGetLongTest_3.java

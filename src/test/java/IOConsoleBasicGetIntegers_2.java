@@ -2,75 +2,96 @@ import org.junit.jupiter.api.Test;
 
 import java.util.InputMismatchException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class IOConsoleBasicGetIntegers_1 {
+class IOConsoleBasicGetIntegers_2 {
 
    @Test
-   void getAnIntegerTest1() {
+   void getIntegerOneDigitTest1() {
       // : Given
-      int input1 = 0;
-      int input2 = 10;
-      String message = String.format("Ingresa %s número(s) entero entre el %s y el %s:", 1, input1, input2);
+      int expected = 0;
+
+      test(expected);
+   }
+
+   @Test
+   void getIntegerOneDigitTest2() {
+      // : Given
+      int expected = 4;
+
+      test(expected);
+   }
+
+   @Test
+   void getIntegerTwoDigitsTest3() {
+      // : Given
+      int expected = 44;
+
+      test(expected);
+   }
+
+   @Test
+   void getIntegerTwoDigitsTest4() {
+      // : Given
+      int expected = -44;
+
+      test(expected);
+   }
+
+   @Test
+   void getIntegerThrowsExceptionTest5() {
+      // : Given
+      String input = "número NO entero (puede ser una letra, un decimal o un simbolo)";
+      String message = String.format("Caso: Tipo NO \"int\".\nIngresa un %s para arrojar una excepción:", input);
+
+      testThrowsAnException(message);
+   }
+
+   @Test
+   void getIntegerThrowsExceptionTest6() {
+      // : Given
+      String input = String.valueOf(Integer.MAX_VALUE);
+      String message = String.format("Caso: Fuera de rango positivo.\nIngresa un número > %s para arrojar una excepción:", input);
+
+      testThrowsAnException(message);
+   }
+
+   @Test
+   void getIntegerThrowsExceptionTest7() {
+      // : Given
+      String input = String.valueOf(Integer.MIN_VALUE);
+      String message = String.format("Caso: Fuera de rango negativo.\nIngresa un número < %s para arrojar una excepción:", input);
+
+      testThrowsAnException(message);
+   }
+
+   /**
+    * Fin de los Tests
+    */
+   private void test(int expected) {
+      // : When
+      String message = String.format("Ingresa el número %s:", expected);
       System.out.println(message);
 
-      // : When
-      int actual = IOConsoleBasic.getAnInteger();
+      IOConsoleBasic console = new IOConsoleBasic();
+      int actual = console.getIntegerInput();
       System.out.println(actual);
-
-      // : Then
-      if ((actual >= input1) & (actual <= input2)) {
-         assertTrue(true);
-      } else {
-         fail();
-      }
-   }
-
-   @Test
-   void getAnIntegerTest2() {
-      // : Given
-      int input1 = -10;
-      int input2 = 10;
-      String message = String.format("Ingresa %s número(s) entero entre el %s y el %s:", 1, input1, input2);
-      System.out.println(message);
-
-      // : When
-      int actual = IOConsoleBasic.getAnInteger();
-      System.out.println(actual);
-
-      // : Then
-      if ((actual >= input1) & (actual <= input2)) {
-         assertTrue(true);
-      } else {
-         fail();
-      }
-   }
-
-   @Test
-   void getAnIntegerThrowsExceptionTest3() {
-      // : Given
-      Exception expected = new InputMismatchException();
-
-      // : When
-      String message = String.format("Ingresa un NO numero entero (puede ser una letra, un decimal o un simbolo):");
-      System.out.println(message);
-
-      // : Then
-      assertThrows(expected.getClass(), IOConsoleBasic::getAnInteger);
-   }
-
-
-   @Test
-   void sum() {
-      // : Given
-      String message = String.format("Ingresa %s números en diferentes líneas para que el resultado sea %s:", "2", "10");
-      System.out.println(message);
-      int expected = 10;
-
-      // : When
-      int actual = IOConsoleBasic.sumTwoNumbers();
 
       // : Then
       assertEquals(expected, actual);
    }
+
+   private void testThrowsAnException(String message) {
+      // : When
+      Exception expected = new InputMismatchException();
+      System.out.println(message);
+
+      // : Then
+      assertThrows(expected.getClass(), () -> {
+         IOConsoleBasic console = new IOConsoleBasic();
+         console.getIntegerInput();
+      });
+   }
+
 }

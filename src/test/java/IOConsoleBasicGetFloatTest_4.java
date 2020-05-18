@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IOConsoleBasicGetFloatTest {
+class IOConsoleBasicGetFloatTest_4 {
 
    @Test
    void getFloatInputTest1() {
@@ -48,47 +48,50 @@ class IOConsoleBasicGetFloatTest {
    }
 
    @Test
-   void getFloatInputThrowsPositiveInfinityTest6() {
+   void getFloatInputReturnsInfinityTest6() {
       // : Given
       String input = String.valueOf(Float.MAX_VALUE);
-      String message = String.format("Caso: Fuera de rango positivo.\nEscribe un número > %s para dar un \"infinity\" positivo:", input);
 
-      testThrowsInfinity(message);
+      // : When
+      String message = String.format("Caso: Fuera de rango.\nEscribe un número > %s para dar un \"infinity\" :", input);
+      System.out.println(message);
+      IOConsoleBasic console = new IOConsoleBasic();
+      float fromConsole = console.getFloatInput();
+      boolean actual = Float.isInfinite(fromConsole);
+
+      // : Then
+      assertTrue(actual);
    }
 
    @Test
-   void getFloatInputThrowsNegativeInfinityTest7() {
+   void getFloatInputReturnsZeroTest7() {
       // : Given
       String input = String.valueOf(Float.MIN_VALUE);
-      String message = String.format("Caso: Fuera de rango negativo.\nEscribe un número < %s para dar un \"infinity\" negativo ", input);
+      float expected = 0.0f;
 
-      testThrowsInfinity(message);
+      // : When
+      String message = String.format("Caso: Minimum non-zero value representable by the mantissa and exponent components of a float.\nEscribe un número < %s para dar un \"infinity\" ", input);
+      System.out.println(message);
+      IOConsoleBasic console = new IOConsoleBasic();
+      float actual = console.getFloatInput();
+
+      // : Then
+      assertEquals(expected, actual);
    }
 
    /**
     * Fin de los Tests
     */
-   private void testThrowsInfinity(String message) {
-      // : When
-      System.out.println(message);
-      float floatInput = IOConsoleBasic.getFloatInput();
-      System.out.println(floatInput);
-
-      // : Then
-      if (Float.isInfinite(floatInput)) {
-         assertTrue(true);
-      } else {
-         fail();
-      }
-   }
-
    private void testThrowsAnException(String message) {
       // : When
       Exception expected = new InputMismatchException();
       System.out.println(message);
 
       // : Then
-      assertThrows(expected.getClass(), IOConsoleBasic::getFloatInput);
+      assertThrows(expected.getClass(), () -> {
+         IOConsoleBasic console = new IOConsoleBasic();
+         console.getFloatInput();
+      });
    }
 
    private void test(float expected) {
@@ -96,7 +99,8 @@ class IOConsoleBasicGetFloatTest {
       String message = String.format("Ingresa el número %s:", expected);
       System.out.println(message);
 
-      float actual = IOConsoleBasic.getFloatInput();
+      IOConsoleBasic console = new IOConsoleBasic();
+      float actual = console.getFloatInput();
       System.out.println(actual);
 
       // : Then

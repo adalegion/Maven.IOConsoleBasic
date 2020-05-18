@@ -1,25 +1,26 @@
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class IOConsoleBasic {
 
-   public static String getAString() {
-      Scanner scanner = new Scanner(System.in);
-      return scanner.next();
+   public String getStringInput() {
+      return null;
    }
 
-
-   public static int getAnInteger() {
-      Scanner scanner = new Scanner(System.in);
-      return scanner.nextInt();
+   public Integer getIntegerInput() {
+      return null;
    }
 
+   public Long getLongInput() {
+      return null;
+   }
 
-   public static int sumTwoNumbers() {
-      Scanner scanner = new Scanner(System.in);
-      int firstSummand = scanner.nextInt();
-      int secondSummand = scanner.nextInt();
+   public Float getFloatInput() {
+      return null;
+   }
 
-      return firstSummand + secondSummand;
+   public Double getDoubleInput() {
+      return null;
    }
 
 }
