@@ -25,6 +25,8 @@
 3. Añade la siguiente línea de código: `-Deditable.java.test.console=true`
 4. Posteriorment, haz click en **File** sobre la barra de menús
 5. Finalmente, haz click en **Invalidate Caches / Restart**
+- **NOTA MAS IMPORTANTE** - Al finalizar este lab revierte los pasos anteriores.
+
 
 <br><br>
 ## `System.in` y `System.out`
